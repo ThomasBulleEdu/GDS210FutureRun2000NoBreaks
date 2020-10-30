@@ -5,35 +5,41 @@ using UnityEngine;
 public class spawnerRoad : MonoBehaviour
 {
     public GameObject[] roadTile;
+    public GameObject speedo;
+    public float speed;
     public float timeBtwSpawn;
     public float startTimeBtwSpawn;
     public int roundCount;
     public float decreaseTime;
+    public float cutOffPoint;
     public float minTime = 0.65f;
+    int rand;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        decreaseTime = 0.1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timeBtwSpawn <= 0)
+        speed = speedo.GetComponent<speedTracking>().currentAccel;
+        cutOffPoint = 100f / speed;
+        if (timeBtwSpawn <= cutOffPoint)
         {
-
-            Instantiate(roadTile[0], transform.position, Quaternion.identity);
-            timeBtwSpawn = startTimeBtwSpawn;
+            int rand = Random.Range(0, 5);
+            Instantiate(roadTile[rand], transform.position, Quaternion.identity);
+            timeBtwSpawn = cutOffPoint * 15;
             if (startTimeBtwSpawn > minTime)
             {
-                timeBtwSpawn -= decreaseTime;
+                timeBtwSpawn -= cutOffPoint;
             }
         }
         else
         {
-            timeBtwSpawn -= decreaseTime;
+            timeBtwSpawn -= cutOffPoint;
         }
     }
 
