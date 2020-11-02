@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Speedometer
   - destroyable
+  - player
+  - MyGuess
   layers:
   - Default
   - TransparentFX
